@@ -1,0 +1,112 @@
+import type { DncrPreset } from './types.ts';
+
+const PRESET_3_CALL_LOG_CSV = [
+  'call_id,caller_line,on_dncr,call_hour_gst,calls_same_day,calls_same_week,prior_rejected,recorded_and_disclosed',
+  'CALL-101,personal_mobile,true,11:30,1,1,false,true',
+  'CALL-102,=HYPERLINK("http://bad"),false,19:30,3,5,true,false',
+  'CALL-103,corporate_licensed_uae,false,10:15,1,1,false,true',
+].join('\n');
+
+export const DNCR_PRESETS: readonly DncrPreset[] = [
+  {
+    id: 'dubai-realestate-brokerage-ready',
+    labelEn: 'Dubai Real Estate Desk (Ready — 100/100 Permit, e& Corporate & DNCR Active)',
+    labelAr: 'وساطة عقارية بدبي (جاهزة 100/100 — خطوط e& مرخصة وDNCR مفعل)',
+    descriptionEn:
+      'Licensed RERA/DED brokerage calling 09:00–18:00 GST from e& corporate numbers with daily DNCR suppression, 1/day & 2/week caps, recording, and upfront disclosure.',
+    descriptionAr:
+      'شركة وساطة مرخصة تتصل بين 9 صباحاً و6 مساءً من خطوط شركات e& مع فحص DNCR يومي، وسقف 1/يوم و2/أسبوع، وتسجيل وإفصاح كامل.',
+    input: {
+      organizationName: 'Palm Horizon Real Estate Brokerage LLC',
+      sector: 'real_estate_brokerage',
+      assessmentDate: '2026-11-25',
+      hasPriorTelemarketingPermit: true,
+      carrier: 'etisalat_e_and',
+      callerLineType: 'corporate_licensed_uae',
+      isPersonalMobileUsed: false,
+      dncrScrubbingActive: true,
+      callingWindowStartHour: 9,
+      callingWindowEndHour: 18,
+      maxCallsPerDay: 1,
+      maxCallsPerWeek: 2,
+      blocksRejectedFollowups: true,
+      callRecordingEnabled: true,
+      openingDisclosureGiven: true,
+      automatedDialerUsed: false,
+      offenseTier: 'first',
+      implementedControls: [
+        'DNC-CTRL-01',
+        'DNC-CTRL-02',
+        'DNC-CTRL-03',
+        'DNC-CTRL-04',
+        'DNC-CTRL-05',
+        'DNC-CTRL-06',
+      ],
+    },
+  },
+  {
+    id: 'sharjah-insurance-automated-dialer-conditional',
+    labelEn: 'Sharjah Insurance Call Desk (Conditional — Automated Dialer & Disclosure Gap)',
+    labelAr: 'مكتب تأمين بالشارقة (مشروط — نظام اتصال آلي وفجوة إفصاح مبدئي)',
+    descriptionEn:
+      'Licensed du call desk with active DNCR scrubbing and 09:00–18:00 window, flagged for automated dialer review and missing upfront recording disclosure (AED 10k exposure).',
+    descriptionAr:
+      'مركز اتصال مرخص على شبكة du ملتزم بـ DNCR وساعات 9–6، لكنه يستخدم اتصالاً آلياً ويفتقر للإفصاح المبدئي (تعرض 10,000 د.إ).',
+    input: {
+      organizationName: 'Al Majaz Insurance Brokers LLC',
+      sector: 'banking_insurance_finance',
+      assessmentDate: '2026-11-25',
+      hasPriorTelemarketingPermit: true,
+      carrier: 'du',
+      callerLineType: 'registered_call_center',
+      isPersonalMobileUsed: false,
+      dncrScrubbingActive: true,
+      callingWindowStartHour: 9,
+      callingWindowEndHour: 18,
+      maxCallsPerDay: 1,
+      maxCallsPerWeek: 2,
+      blocksRejectedFollowups: true,
+      callRecordingEnabled: true,
+      openingDisclosureGiven: false,
+      automatedDialerUsed: true,
+      offenseTier: 'first',
+      implementedControls: [
+        'DNC-CTRL-01',
+        'DNC-CTRL-02',
+        'DNC-CTRL-03',
+        'DNC-CTRL-04',
+        'DNC-CTRL-05',
+      ],
+    },
+  },
+  {
+    id: 'abudhabi-unlicensed-coldcall-blocked',
+    labelEn: 'Abu Dhabi Unlicensed Sales Team (Blocked — Personal Mobile, DNCR Hits & 19:30 Calls)',
+    labelAr: 'فريق مبيعات غير مصرح بأبوظبي (محجوب — جوال شخصي، DNCR، وساعة 19:30)',
+    descriptionEn:
+      'Repeat-tier cold-calling desk lacking authority permit and DNCR scrub, using personal mobile phones up to 21:00 (3/day, 6/week), carrying AED 150k fine & disconnection exposure plus CWE-1236 CSV log.',
+    descriptionAr:
+      'فريق مبيعات بلا تصريح مسبق أو فحص DNCR يستخدم هواتف شخصية حتى 9 مساءً بتكرار 3/يوم و6/أسبوع، معرض لغرامة 150,000 د.إ ووقف الرخصة والاتصالات مع سجل CSV محقون.',
+    input: {
+      organizationName: 'Capital Crescent Tele-Sales FZE',
+      sector: 'other_commercial',
+      assessmentDate: '2026-11-25',
+      hasPriorTelemarketingPermit: false,
+      carrier: 'etisalat_e_and',
+      callerLineType: 'personal_mobile',
+      isPersonalMobileUsed: true,
+      dncrScrubbingActive: false,
+      callingWindowStartHour: 8,
+      callingWindowEndHour: 21,
+      maxCallsPerDay: 3,
+      maxCallsPerWeek: 6,
+      blocksRejectedFollowups: false,
+      callRecordingEnabled: false,
+      openingDisclosureGiven: false,
+      automatedDialerUsed: true,
+      offenseTier: 'third_or_more',
+      callLogsCsv: PRESET_3_CALL_LOG_CSV,
+      implementedControls: [],
+    },
+  },
+];

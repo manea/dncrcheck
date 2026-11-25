@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+:root,
+[data-theme="telecom-ivory"] {
+  --bg-canvas: #F8F9FB;
+  --bg-surface: #FFFFFF;
+  --bg-elevated: #EEF2F7;
+  --bg-soft: rgba(30, 64, 175, 0.08);
+  --border-subtle: #D8E1EE;
+  --border-strong: #93A5BF;
+  --text-primary: #0F1B2E;
+  --text-secondary: #475A75;
+  --accent-primary: #1E40AF;
+  --accent-primary-hover: #1E3A8A;
+  --accent-primary-fg: #FFFFFF;
+  --accent-emerald: #0D7A5F;
+  --accent-emerald-soft: rgba(13, 122, 95, 0.12);
+  --accent-cobalt: #1E40AF;
+  --accent-cobalt-soft: rgba(30, 64, 175, 0.12);
+  --accent-amber: #B86B11;
+  --accent-amber-soft: rgba(184, 107, 17, 0.14);
+  --accent-crimson: #B91C1C;
+  --accent-crimson-fg: #FFFFFF;
+  --accent-crimson-soft: rgba(185, 28, 28, 0.12);
+  --shadow-card: 0 12px 28px -16px rgba(15, 27, 46, 0.14);
+}
+
+[data-theme="gulf-night"] {
+  --bg-canvas: #09111E;
+  --bg-surface: #101B2D;
+  --bg-elevated: #18263D;
+  --bg-soft: rgba(96, 165, 250, 0.14);
+  --border-subtle: #243754;
+  --border-strong: #4B668E;
+  --text-primary: #EAF1FC;
+  --text-secondary: #B1C4DF;
+  --accent-primary: #60A5FA;
+  --accent-primary-hover: #93C5FD;
+  --accent-primary-fg: #071324;
+  --accent-emerald: #34D399;
+  --accent-emerald-soft: rgba(52, 211, 153, 0.18);
+  --accent-cobalt: #60A5FA;
+  --accent-cobalt-soft: rgba(96, 165, 250, 0.18);
+  --accent-amber: #FBBF24;
+  --accent-amber-soft: rgba(251, 191, 36, 0.18);
+  --accent-crimson: #F87171;
+  --accent-crimson-fg: #210707;
+  --accent-crimson-soft: rgba(248, 113, 113, 0.18);
+  --shadow-card: 0 18px 40px -16px rgba(0, 0, 0, 0.72);
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: "IBM Plex Sans Arabic", "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer components {
+  .dnc-mono {
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  .num-tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .dnc-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-card);
+  }
+
+  .dnc-input {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-strong);
+    color: var(--text-primary);
+    border-radius: 0.6rem;
+    padding: 0.45rem 0.7rem;
+    font-size: 0.875rem;
+    width: 100%;
+    transition: border-color 150ms ease, box-shadow 150ms ease;
+  }
+
+  .dnc-input:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px var(--bg-soft);
+  }
+}
+
+@page {
+  size: A4;
+  margin: 14mm;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #0f1b2e !important;
+  }
+
+  .dnc-card {
+    box-shadow: none !important;
+    border-color: #cbd5e1 !important;
+    background: #ffffff !important;
+  }
+}
